@@ -1,0 +1,13 @@
+% TASK 2
+
+% Base case: No coins, sum is zero
+payment(0, []).
+
+payment(Sum, Coins) :-
+    % Pattern-match the topmost coin from the Coins list
+    Coins = [coin(AmountOfCoinsNeeded, ValueOfCoin, AmountOfCoinsAvailable)|CoinsTail],
+    % AmountOfCoinsNeeded can be between 0 and AmountOfCoinsAvailable
+    AmountOfCoinsNeeded in 0..AmountOfCoinsAvailable,
+    % The current coin plus the rest of the coins must equal Sum
+    Sum #= AmountOfCoinsNeeded * ValueOfCoin + TailSum,
+    payment(TailSum, CoinsTail).
